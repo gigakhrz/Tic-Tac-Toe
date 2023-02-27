@@ -387,6 +387,7 @@ section h2{
     position: absolute;
     width: 100%;
     top: 35%;
+    display: none;
 }
 
 /* restart game */
@@ -406,6 +407,7 @@ section h2{
 
 .restart-game h2{
      color: var(--silver);
+     margin-bottom: 8px;
 }
 
 .yes-restart{
@@ -433,6 +435,87 @@ section h2{
     line-height: 20px;
     letter-spacing: 1px;
 }
+
+/* when playing player  with O */
+.player-1o-win{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    background-color:var(--semidarknavy) ;
+    height: 228px;
+    position: absolute;
+    width: 100%;
+    top: 35%;
+    display: none;
+}
+
+.player-2o-win{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    background-color:var(--semidarknavy) ;
+    height: 228px;
+    position: absolute;
+    width: 100%;
+    top: 35%;
+    display: none;
+}
+
+/* when playing player  with X */
+.player-1x-win{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    background-color:var(--semidarknavy) ;
+    height: 228px;
+    position: absolute;
+    width: 100%;
+    top: 35%;
+    display: none;
+}
+
+.player-2x-win{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    background-color:var(--semidarknavy) ;
+    height: 228px;
+    position: absolute;
+    width: 100%;
+    top: 35%;
+    display: none;
+}
+
+/* round tied */
+.round-tied{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    background-color:var(--semidarknavy) ;
+    height: 228px;
+    position: absolute;
+    width: 100%;
+    top: 35%;
+    display: none;
+}
+
+.round-tied h2{
+     color: var(--silver);
+     margin-bottom: 8px;
+}
+
+
+
 
 
 
