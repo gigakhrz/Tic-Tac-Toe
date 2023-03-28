@@ -80,7 +80,7 @@ body{
     height: 54px;
     border-radius: 10px;
     border: none;
-    background-color: var(--darknavy);
+    background-color: var(--darknavy) ;
 }
 
 .picko{
@@ -94,23 +94,24 @@ body{
     background-color: var(--darknavy);
 }
 
-.pickx:hover{
+.choose:hover{
     background-color: var(--semidarknavy);
     cursor: pointer;
 }
 
-.picko:hover{
+.choose:hover{
     background-color: var(--semidarknavy);
     cursor: pointer;
 }
 
 .active{
-    background-color: var(--silver);
+    background-color: var(--silver) !important;
 }
 
 .active .path{
     fill: var(--darknavy);
 }
+
 
 .remember{
     opacity: 50%;
@@ -151,18 +152,35 @@ body{
     display: flex;
     flex-direction: column;
     padding: 23px;
-    width: 100%;
-    height: 100vh;
     gap: 20px;
-    max-width: 410px;
+    width: 410px;
     margin: auto;
     display: none;
+}
+
+.xhover:hover{
+    background-image: url(./assets/icon-x-outline.svg);
+    background-repeat: no-repeat;
+    background-size: 64px 64px;
+    background-position: center;
+}
+
+.ohover:hover{
+    background-image: url(./assets/icon-o-outline.svg);
+    background-repeat: no-repeat;
+    background-size: 64px 64px;
+    background-position: center;
 }
 
 .game-header{
     display: flex;
     justify-content: space-between;
     margin-bottom: 44px;
+}
+
+.icons{
+    width: 40px;
+    height:40px;
 }
 
 .turn-container{
@@ -215,6 +233,9 @@ body{
     background: #1F3641;
     box-shadow: inset 0px -8px 0px #10212A;
     border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .game-footer{
@@ -548,6 +569,152 @@ section h2{
      margin-bottom: 8px;
 }
 
+/* added for javascript */
+
+.o-winner-active{
+    background-color: #F2B137;
+    background-image: url(./assets/icon-black-o.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 40px 40px;
+}
+
+.x-winner-active{
+    background-color: #F2B137;
+    background-image: url(./assets/icon-black-x.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 40px 40px;
+}
+
+.background{
+    position: absolute;
+    background-color: #000000;
+    opacity: 0.3;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+
+/* ---------tablet version ----------*/
+
+@media  screen and (min-width:768px) {
+
+    body{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* javascriot will add this icon */
+    .icons{
+        width: 64px;
+        height:64px;
+    }
+
+    .newgame{
+        width: 460px;
+        gap: 40px;
+        margin: 0;
+    }
+
+    .vscpu , .vsplayer{
+        font-size: 20px;
+        line-height: 25.2px;
+        letter-spacing: 1.25px;
+    }
+    
+    .game-header{
+        margin: 0;
+        align-items: center;
+    }
+
+    .turn-container{
+        width: 140px;
+        height: 52px;
+        justify-content: center;
+        gap: 13px;
+        padding: 0;
+        margin-left: -20px;
+    }
+
+    .turn-container img{
+        width: 20px;
+        height: 20px;
+    }
+
+    .turn-container p {
+        font-size: 16px;
+        line-height: 20.16px;
+    }
+
+    .reset{
+        width: 52px;
+        height: 52px;
+    }
+
+    .game-board{
+        margin: 0;
+        width: 460px;
+        padding: 50px 0 0 0;
+    }
+
+    .game-box{
+        width: 140px;
+        height: 140px;
+    }
+
+    .game-footer{
+        margin: 0;
+    }
+
+    .ties, .cpu-score, .your-score{
+        width: 140px;
+        height: 72px;
+    }
+
+    .player-1o-win , .player-1x-win, .player-2o-win, .player-2x-win, .player-o-lost,
+    .player-o-win, .player-x-lost , .player-x-win, .restart-game, .round-tied {
+        max-width: 100%;
+        right: 0;
+        top: 25%;
+    }
+
+    .round-tied h2, .restart-game h2{
+        font-size: 40px;
+        line-height: 54.4px;
+        letter-spacing: 2.5px;
+    }
+
+    .img-x, .img-o{
+        width: 64px;
+        height: 64px;
+    }
+
+    .h2-o, .h2-x{
+        font-size: 40px;
+        line-height: 54.4px;
+        letter-spacing: 2.5px;
+    }
+
+    section p{
+        font-size: 16px;
+        line-height: 20.16px;
+        letter-spacing: 1px;
+    }
+
+    /* added for javascript */
+
+    .o-winner-active{
+        background-size: 64px 64px;
+    }
+
+    .x-winner-active{
+        background-size: 64px 64px;
+    }
+}
 
 
 
