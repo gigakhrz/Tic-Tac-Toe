@@ -580,7 +580,7 @@ section h2{
 }
 
 .x-winner-active{
-    background-color: #F2B137;
+    background-color:var(--lightblue);
     background-image: url(./assets/icon-black-x.svg);
     background-repeat: no-repeat;
     background-position: center;

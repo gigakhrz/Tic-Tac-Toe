@@ -11,16 +11,27 @@ const restart = document.querySelector('.reset');
 const restartDiv = document.querySelector('.restart-game');
 const noCancel = document.querySelector('.no-cancel');
 const yesRestart = document.querySelector('.yes-restart');
+//turn
+const turnO = document.querySelector('.o-o');
+const turnX = document.querySelector('.x');
 //game boxes 
 const gameBox = document.querySelectorAll('.game-box');
 // show result 
 const player1Win = document.querySelector('.player-1x-win');
 const player2Win = document.querySelector('.player-2o-win');
 const roundTied = document.querySelector('.round-tied');
+//result buttons
+const quit  = document.querySelectorAll('.quit');
+const nextRound  = document.querySelectorAll('.next-round');
 
 //for background
 const background = document.querySelector(".background");
-console.log(background);
+
+//score divs
+const playerX= document.querySelector(".your-score");
+const playerO= document.querySelector(".cpu-score");
+const ties= document.querySelector(".ties");
+
 
 let freeButons = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 let xArray = [];
@@ -38,6 +49,12 @@ let winnigCombinations = [
     [2, 4, 6],
 ]
 
+//winning counts
+let countX = 0;
+let countO = 0;
+let countTied = 0;
+
+
 //player chooses element.
 const chooseElement = (icon) => {
     if(icon === 'x'){
@@ -51,12 +68,29 @@ const chooseElement = (icon) => {
     }
 }
 
-// The player chooses the game mode.
-//დასასრულებელია
-const startGame = (gamemode) => {
-    homePage.style.display = "none";
-    if(gamemode === "vscpu"){
+const startGame = () =>{
+    chooseMode[1].addEventListener('click' , () => {
+        homePage.style.display = "none";
         boardGame.style.display = "flex";
+        differentPlayer();
+    })
+    
+}
+
+const differentPlayer = () => {
+    if(player1==="x"){
+        playerX.firstElementChild.textContent = "X (P1)";
+        playerO.firstElementChild.textContent = "O (P2)";
+        player1Win.firstElementChild.textContent = 'PLAYER 1 WINS!'
+        player2Win.firstElementChild.textContent = 'PLAYER 2 WINS!'
+    } else if (player1=== 'o'){
+        playerX.firstElementChild.textContent = "X (P2)";
+        playerO.firstElementChild.textContent = "O (P1)";
+        player1Win.firstElementChild.textContent = 'PLAYER 2 WINS!'
+        player2Win.firstElementChild.textContent = 'PLAYER 1 WINS!'
+    }else {
+        homePage.style.display = "flex";
+        boardGame.style.display = "none";
     }
 }
 
@@ -72,6 +106,18 @@ const restartGame = () => {
 
     yesRestart.addEventListener('click', () => {
         restartDiv.style.display = "none";
+        countO =0;
+        countX = 0;
+        countTied = 0;
+        playerX.lastElementChild.textContent = countX;
+        playerO.lastElementChild.textContent = countO;
+        ties.lastElementChild.textContent = countTied;
+        for (let index = 0; index < gameBox.length; index++) {
+            if(gameBox[index].hasChildNodes()){
+                newGame();
+                gameBox[index].innerHTML = "";
+            }
+        }
     })
 }
 
@@ -120,6 +166,7 @@ const addClick = () => {
             event.target.onclick=null;
 
            checkWinner();
+           turnXO();
         }
     }
 }
@@ -127,45 +174,126 @@ const addClick = () => {
 //It is used in the function addClick
 const checkWinner = () => {
     for (let i = 0; i < winnigCombinations.length; i++) {
-      const [a, b, c] = winnigCombinations[i];
-      if (xArray.includes(a) && xArray.includes(b) && xArray.includes(c)) {
-        player1Win.style.display = 'flex';
+        if (xArray.includes(winnigCombinations[i][0]) && xArray.includes(winnigCombinations[i][1]) && xArray.includes(winnigCombinations[i][2])) {
+            
+            player1Win.style.display = 'flex';
+            background.style.display = 'flex';
+            const [a, b, c] = winnigCombinations[i];
+            
+            gameBox[a].classList.add('x-winner-active');
+            gameBox[b].classList.add('x-winner-active');
+            gameBox[c].classList.add('x-winner-active');
 
-        gameBox[a].classList.add('x-winner-active');
-        gameBox[b].classList.add('x-winner-active');
-        gameBox[c].classList.add('x-winner-active');
+            gameBox[a].innerHTML = '';
+            gameBox[b].innerHTML = '';
+            gameBox[c].innerHTML = '';
+            
+            countX++;
+            return;
 
-        gameBox[a].innerHTML = "";
-        gameBox[b].innerHTML = "";
-        gameBox[c].innerHTML = "";
+        } else if (oArray.includes(winnigCombinations[i][0]) && oArray.includes(winnigCombinations[i][1]) && oArray.includes(winnigCombinations[i][2])) {
+            player2Win.style.display = 'flex';
+            background.style.display = 'flex';
+            
+            const [a, b, c] = winnigCombinations[i];
 
-        background.style.display = 'flex';
-        
-      } else if(oArray.includes(a) && oArray.includes(b) && oArray.includes(c)){
-        player2Win.style.display = 'flex';
+            gameBox[a].classList.add('o-winner-active');
+            gameBox[b].classList.add('o-winner-active');
+            gameBox[c].classList.add('o-winner-active');
 
-        gameBox[a].classList.add('o-winner-active');
-        gameBox[b].classList.add('o-winner-active');
-        gameBox[c].classList.add('o-winner-active');
+            gameBox[a].innerHTML = '';
+            gameBox[b].innerHTML = '';
+            gameBox[c].innerHTML = '';
+            
+            countO++;
+            return;
+        }
+    }
 
-        gameBox[a].innerHTML = "";
-        gameBox[b].innerHTML = "";
-        gameBox[c].innerHTML = "";
-
-        background.style.display = 'flex';
-
-      }else if (freeButons.length === 0) {
+    if (freeButons.length === 0 && !checkTie()) {
         roundTied.style.display = 'flex';
         background.style.display = 'flex';
-      }
+        countTied++;
     }
 };
-  
+
+const checkTie = () => {
+    for (let i = 0; i < winnigCombinations.length; i++) {
+        if (xArray.includes(winnigCombinations[i][0]) && xArray.includes(winnigCombinations[i][1]) && xArray.includes(winnigCombinations[i][2])) {
+            return true;
+        } else if (oArray.includes(winnigCombinations[i][0]) && oArray.includes(winnigCombinations[i][1]) && oArray.includes(winnigCombinations[i][2])) {
+            return true;
+        }
+    }
+    return false;
+};
+
+const button = () => {
+    for (let i = 0; i < quit.length; i++) {
+        quit[i].addEventListener("click", () =>{
+            location.reload();
+        })
+        
+    }
+
+    for (let j = 0; j < nextRound.length; j++) {
+        nextRound[j].addEventListener('click', () => {
+            player1Win.style.display = "none";
+            player2Win.style.display = "none";
+            roundTied.style.display = "none";
+            playerX.lastElementChild.textContent = countX;
+            playerO.lastElementChild.textContent = countO;
+            ties.lastElementChild.textContent = countTied;
+            background.style.display = 'none';
+
+            for (let e = 0; e < gameBox.length; e++) {
+                gameBox[e].classList.remove('o-winner-active');
+                gameBox[e].classList.remove('x-winner-active');
+            }
+            
+
+            turn = "x" ;
+            turnXO();
+            for (let index = 0; index < gameBox.length; index++) {
+                if(gameBox[index].hasChildNodes()){
+                    newGame();
+                    gameBox[index].innerHTML = "";
+                }
+                
+            }
+        })
+        
+    }
+}
+// when want next round
+const newGame = () => {
+    freeButons = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+    xArray = [];
+    oArray = [];
+    turn = 'x';
+    hoverOnBox();
+    addClick();
+    turnXO();
+} 
+
+const turnXO =  () => {
+    if(turn==='x'){
+        turnX.style.display = 'block';
+        turnO.style.display = 'none';
+    } else{
+        turnX.style.display = 'none';
+        turnO.style.display = 'block';
+    }
+}
+
+
+
 // main functions
+startGame();
 restartGame();
 hoverOnBox();
 addClick();
-
+button();
 
 
 
