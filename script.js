@@ -1,4 +1,3 @@
-//bindings
 //player chooses element.
 const chooseXO = document.querySelectorAll(".choose");
 //The player chooses the game mode.
@@ -94,7 +93,7 @@ const differentPlayer = () => {
   }
 };
 
-//restart game
+//restart Game
 const restartGame = () => {
   restart.addEventListener("click", () => {
     restartDiv.style.display = "flex";
